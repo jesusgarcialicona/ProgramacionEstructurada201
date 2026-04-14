@@ -62,8 +62,8 @@ def ejecutar_pipeline():
 				# Normalizar para la IA (0-1)
 				datos_finales.append(valor / 100)
 	if datos_finales:
-	stats = obtener_estadisticas(datos_finales)
-	generar_reporte(cuenta_total, len(datos_finales), stats)
+		stats = obtener_estadisticas(datos_finales)
+		generar_reporte(cuenta_total, len(datos_finales), stats)
  
 if __name__ == "__main__":
 	ejecutar_pipeline()
