@@ -38,19 +38,31 @@ def obtener_estadisticas(lista_datos):
 	return (maximo, minimo, promedio)
  
 def generar_reporte(total_datos, validos, estadisticas):
-	"""
-	FUNCIÓN 4: Imprime un resumen formateado de los resultados.
-	"""
+	v_max, v_min, v_prom = estadisticas
+	descartados = total_datos - validos
+	#implementar aqui
+	print("*" * 30)
+	print("REPORTE DE ANILISIS PREDECTIVO")
+	print("*" * 30)
+	print(f"Total de lecturas prcesadas: {total_datos}")
+	print(f"Lecturas válidas: {validos}")
+	print(f"Lecturas descartadas: {descartados}")
+	print(f"Valor máximo: {v_max}")
+	print(f"Valor mínimo: {v_min}")
+	print(f"Promedio: {v_prom}")
+	print("*" * 30)
 	print(f"Total de datos: {total_datos}")
 	print(f"Datos válidos: {validos}")
 	print(f"Máximo: {estadisticas[0]:.2f}")
 	print(f"Mínimo: {estadisticas[1]:.2f}")
 	print(f"Promedio: {estadisticas[2]:.2f}")
- 
+	
+import os 
 # --- LÓGICA PRINCIPAL (NO MODIFICAR ESTA PARTE) ---
 def ejecutar_pipeline():
 	datos_finales = []
 	cuenta_total = 0
+
 	with open("lecturas_sensores.txt", "r") as f:
 		for linea in f:
 			cuenta_total += 1
