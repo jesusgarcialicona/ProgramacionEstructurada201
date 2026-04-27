@@ -1,0 +1,66 @@
+# hola
+
+"""
+Funcion que recibe un texto y decide que responder.
+implementa programacion esrtucturada pura.
+"""
+
+def procesar_pregunta(mensaje_usuario):
+    #1.- Normaliazcion (paso fundamental en IA)
+    mensaje = mensaje_usuario.lower().strip()
+    #2.- Base de conocimientos (diccionario)
+    conocimientos = {
+        #conceptos de estructura de control
+        "if":   "La sentencia if es un condicional. permite que el programa tome decisiones basandose en una condicion boolenana",
+        "procedural programming":   "Es un paradigma de programacion que se basa en la division del programa en procedimientos o funciones, cada uno con una tarea especifica"
+        "else": "La sentencia else se ejecuta cuando la condicion del if es falsa, permite manejar el caso alternativo",
+
+        #Tipos de datos
+        "int":  "Representa numeros enteros, como 1, 2, 3, no tiene parte decimal",
+        "str":  "Representa cadenas de texto, como 'hola', 'mundo', se utilizan para almacenar texto"
+        "float": "Representa numeros decimales, como 3.14 o 2.5, se utiliza para calculos con precision",
+        "bool": "Representa valores booleanos, True o False, se utiliza en condiciones y comparaciones", 
+
+        #Funciones y modularidad
+        "def":  "Es la palabra reservada para definir una funcion en python",
+        "return":  "Es una palabra reservada que se utiliza para devolver un valor desde una funcion"
+        "lambda": "Es una funcion anonima de una sola expresion, util para operaciones simples y rapidas",
+
+        #operadores y sintaxis
+        "print":  "Es una funcion incorporada en python que se utiliza para mostrar informacion en la consola",
+        "import":  "Es una palabra reservada que se utiliza para importar modulos y librerias en python"
+        "input": "Es una funcion incorporada que permite leer datos ingresados por el usuario desde la consola",
+        "len":   "Es una funcion incorporada que devuelve la longitud o numero de elementos de una secuencia"
+
+        #conceptos de estructura de control
+        "for":  "La sentencia for es un bucle que itera sobre una secuencia, como una lista o un rango de numeros",
+        "while":  "La sentencia while es un bucle que se ejecuta mientras una condicion sea verdadera"
+        "break": "La sentencia break interrumpe la ejecucion de un bucle for o while de forma inmediata",    
+        "continue": "La sentencia continue salta la iteracion actual del bucle y pasa a la siguiente",     
+
+    }
+    #3.- Logica de busqueda
+    for clave in conocimientos:
+            if clave in mensaje:
+                return conocimientos[clave]
+
+    #3.- Busqueda en la base de conocimientos
+    if mensaje in conocimientos:
+        return conocimientos[mensaje]
+    else:
+        return "Lo siento, no entiendo esa pregunta."
+
+def main():
+    print("Bienvenido al agente de logica. Preguntame sobre conceptos de programacion.")
+    while True:
+        pregunta = input("Tu pregunta: ")
+        if pregunta.lower() == "salir":
+            print("Adios!")
+            break
+        respuesta = procesar_pregunta(pregunta)
+        print("Respuesta:", respuesta)
+    
+    
+#prueba locar (offline)
+if __name__ == "__main__":
+    main()
