@@ -1,66 +1,76 @@
-# hola
+import datetime
 
-"""
-Funcion que recibe un texto y decide que responder.
-implementa programacion esrtucturada pura.
-"""
+def analizar_comando(entrada_usuario):
+    """
+    Segunda fase del Agente: Procesamiento de comandos y lógica dinámica.    
+    """
+    mensaje = entrada_usuario.lower().strip()
+    
+    # Simulación de comandos prefijados (como se usan en Discord: !ayuda, !ejemplo)
+    if mensaje.startswith("!"):
+        partes = mensaje.split(" ", 1)
+        comando = partes[0]
+        argumento = partes[1] if len(partes) > 1 else None
+        
+        # Lógica de Comandos
+        if comando == "!definir":
+            return buscar_en_diccionario(argumento)
+        
+        elif comando == "!validar":
+            return validar_variable(argumento)
+            
+        elif comando == "!hora":
+            ahora = datetime.datetime.now().strftime("%H:%M:%S")
+            return f" La hora actual del servidor es: {ahora}"
+            
+        elif comando == "!ayuda":
+            return (" Comandos disponibles:\n"
+                    "1. '!definir <termino>' - Busca conceptos de Python.\n"
+                    "2. '!validar <nombre>' - Revisa si un nombre de variable es válido.\n"
+                    "3. '!hora' - Muestra la hora del sistema.")
+        
+        else:
+            return f" El comando '{comando}' no existe. Usa '!ayuda'."
+            
+    return " Recuerda usar el prefijo '!' para darme órdenes, o pregunta algo directamente."
 
-def procesar_pregunta(mensaje_usuario):
-    #1.- Normaliazcion (paso fundamental en IA)
-    mensaje = mensaje_usuario.lower().strip()
-    #2.- Base de conocimientos (diccionario)
-    conocimientos = {
-        #conceptos de estructura de control
-        "if":   "La sentencia if es un condicional. permite que el programa tome decisiones basandose en una condicion boolenana",
-        "procedural programming":   "Es un paradigma de programacion que se basa en la division del programa en procedimientos o funciones, cada uno con una tarea especifica"
-        "else": "La sentencia else se ejecuta cuando la condicion del if es falsa, permite manejar el caso alternativo",
-
-        #Tipos de datos
-        "int":  "Representa numeros enteros, como 1, 2, 3, no tiene parte decimal",
-        "str":  "Representa cadenas de texto, como 'hola', 'mundo', se utilizan para almacenar texto"
-        "float": "Representa numeros decimales, como 3.14 o 2.5, se utiliza para calculos con precision",
-        "bool": "Representa valores booleanos, True o False, se utiliza en condiciones y comparaciones", 
-
-        #Funciones y modularidad
-        "def":  "Es la palabra reservada para definir una funcion en python",
-        "return":  "Es una palabra reservada que se utiliza para devolver un valor desde una funcion"
-        "lambda": "Es una funcion anonima de una sola expresion, util para operaciones simples y rapidas",
-
-        #operadores y sintaxis
-        "print":  "Es una funcion incorporada en python que se utiliza para mostrar informacion en la consola",
-        "import":  "Es una palabra reservada que se utiliza para importar modulos y librerias en python"
-        "input": "Es una funcion incorporada que permite leer datos ingresados por el usuario desde la consola",
-        "len":   "Es una funcion incorporada que devuelve la longitud o numero de elementos de una secuencia"
-
-        #conceptos de estructura de control
-        "for":  "La sentencia for es un bucle que itera sobre una secuencia, como una lista o un rango de numeros",
-        "while":  "La sentencia while es un bucle que se ejecuta mientras una condicion sea verdadera"
-        "break": "La sentencia break interrumpe la ejecucion de un bucle for o while de forma inmediata",    
-        "continue": "La sentencia continue salta la iteracion actual del bucle y pasa a la siguiente",     
-
+def buscar_en_diccionario(termino):
+    if not termino:
+        return "Debes escribir qué término quieres definir. Ej: '!definir list'"
+    
+    # Base de datos simplificada (puedes reutilizar la de la práctica anterior)
+    conocimiento = {
+        "variable": "Un espacio en memoria para almacenar datos.",
+        "lista": "Colección mutable de elementos.",
+        "tupla": "Colección inmutable de elementos (no se puede cambiar)."
     }
-    #3.- Logica de busqueda
-    for clave in conocimientos:
-            if clave in mensaje:
-                return conocimientos[clave]
+    return conocimiento.get(termino, f" No encontré '{termino}' en mi base de datos.")
 
-    #3.- Busqueda en la base de conocimientos
-    if mensaje in conocimientos:
-        return conocimientos[mensaje]
-    else:
-        return "Lo siento, no entiendo esa pregunta."
+def validar_variable(nombre):
+    """
+    Lógica pedagógica: Enseña a los alumnos las reglas de nombrado en Python.
+    """
+    if not nombre:
+        return " Indica el nombre a validar. Ej: `!validar mi_variable`"
+    
+    # Reglas básicas de Python
+    if nombre[0].isdigit():
+        return f" '{nombre}' no es válido: ¡No puede empezar con un número!"
+    if " " in nombre:
+        return f" '{nombre}' no es válido: No puede contener espacios."
+    if not nombre.isidentifier():
+        return f" '{nombre}' contiene caracteres no permitidos (solo letras, números y _)."
+        
+    return f" '{nombre}' es un nombre de variable válido en Python."
 
-def main():
-    print("Bienvenido al agente de logica. Preguntame sobre conceptos de programacion.")
-    while True:
-        pregunta = input("Tu pregunta: ")
-        if pregunta.lower() == "salir":
-            print("Adios!")
-            break
-        respuesta = procesar_pregunta(pregunta)
-        print("Respuesta:", respuesta)
-    
-    
-#prueba locar (offline)
+# --- Simulación de ejecución ---
 if __name__ == "__main__":
-    main()
+    print("--- Agente de Lógica: Fase de Comandos ---")
+    print("Prueba comandos como: !validar 123hola o !definir lista\n")
+    
+    while True:
+        user_input = input("Alumno >> ")
+        if user_input.lower() in ["salir", "exit"]: break
+        
+        respuesta = analizar_comando(user_input)
+        print(f"Bot >> {respuesta}\n")

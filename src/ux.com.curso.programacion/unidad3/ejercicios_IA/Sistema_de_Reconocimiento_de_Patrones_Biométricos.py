@@ -58,5 +58,5 @@ def main():
     reconocimiento_seguridad()
 
 
-if __name_ == "_main_":
+if __name__ == "_main_":
     main()
