@@ -30,7 +30,8 @@ print("=== REPORTE DE ACTIVIDAD DEL SERVIDOR ===")
 print(f"Promedio de mensajes por hora: {prom:.2f}")
 print(f"Pico de actividad registrado: {maximo} mensajes")
 print(f"Variabilidad del tráfico (Desviación): {ds:.2f}")
-    
+print(f"Media de mensajes por hora: {media:.2f}")
+
 
 def __main__():
     print("Análisis de mensajes completado.")
