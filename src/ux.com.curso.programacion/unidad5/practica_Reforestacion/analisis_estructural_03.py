@@ -109,3 +109,4 @@ if __name__ == "__main__":
     
     ids_discord = [4521, 8892, 4521, 1022, 8892, 9931]
     print("Lista de IDs únicas filtradas:", depurar_usuarios_repetidos(ids_discord))
+    
